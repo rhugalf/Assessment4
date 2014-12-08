@@ -7,7 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "DogsViewController.h"
 #import "DogOwner.h"
+#import "Person.h"
+#import "ColorUser.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
@@ -18,6 +21,7 @@
 
 @property (nonatomic)  NSArray *dogOwners;
 @property (nonatomic)  NSMutableArray *persons;
+@property (nonatomic)  ColorUser *colorFav;
 
 @end
 
@@ -29,57 +33,48 @@
     [super viewDidLoad];
     self.title = @"Dog Owners";
     self.persons = [[NSMutableArray alloc] init];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (![defaults objectForKey:@"tableViewPopulated"]) {
-        
-        [DogOwner retrieveDogOwnersWithCompletion:^(NSArray *dogowners) {
+   
+    DogOwner *dogOwn = [[DogOwner alloc] init];
+    
+    dogOwn.managedObjectContext = self.managedObjectContext;
+    
+        [dogOwn retrieveListOwnersWithCompletion:^(NSArray *dogowners) {
         self.dogOwners = dogowners;
+        [self.myTableView reloadData];
         }];
-        
-        [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"tableViewPopulated"];
-        [defaults synchronize];
-    }
-    [self loadData];
-}
-
-- (IBAction)onAddOwner:(UITextField *)sender {
-    NSLog(@"adding...");
     
-    NSManagedObject *owner =[NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:self.managedObjectContext];
-    [owner setValue:sender.text forKey:@"name"];
-
-    [self.managedObjectContext save:nil];
-    [self loadData];
     
-    sender.text=@"";
-    [sender resignFirstResponder];
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"ColorUser"];
+    request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"colorRValue" ascending:NO]];
+    NSError *error;
     
+    ColorUser *cu = [self.managedObjectContext executeFetchRequest:request error:&error];
+    
+    UIColor *col = [[UIColor alloc] initWithRed:1 green:0.5 blue:0 alpha:1];
+    
+    //self.navigationController.navigationBar.tintColor = col;
+
 }
 
--(void)loadData{
-    NSFetchRequest *request =[[NSFetchRequest alloc]initWithEntityName:@"Person"];
-
-    NSArray *localP =[self.managedObjectContext executeFetchRequest:request error:nil];
-    [self.persons addObjectsFromArray:localP];
-    [self.myTableView reloadData];
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    Person *person = [self.dogOwners objectAtIndex:self.myTableView.indexPathForSelectedRow.row];
+    DogsViewController *dogsViewController = segue.destinationViewController;
+    dogsViewController.personOwner  = person;
 }
 
--(void)setDogOwners:(NSArray *)dogOwners{
-    _dogOwners = dogOwners;
-    [self.myTableView reloadData];
-}
+
 
 #pragma mark - UITableView Delegate Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //TODO: UPDATE THIS ACCORDINGLY
-    return self.persons.count;
+    return self.dogOwners.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DogOwner *owner = [self.persons objectAtIndex:indexPath.row];
+    Person *owner = [self.dogOwners objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"myCell"];
     //TODO: UPDATE THIS ACCORDINGLY
     cell.textLabel.text = owner.name;
@@ -108,8 +103,11 @@
     {
         self.navigationController.navigationBar.tintColor = [UIColor greenColor];
     }
+    [self storeColor];
 
 }
+
+
 
 //METHOD FOR PRESENTING USER'S COLOR PREFERENCE
 - (IBAction)onColorButtonTapped:(UIBarButtonItem *)sender
@@ -121,6 +119,24 @@
                                           otherButtonTitles:@"Purple", @"Blue", @"Orange", @"Green", nil];
     self.colorAlert.tag = 1;
     [self.colorAlert show];
+}
+
+-(void)storeColor{
+    UIColor *c = self.navigationController.navigationBar.tintColor;
+    CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
+    const CGFloat *components = CGColorGetComponents(c.CGColor);
+    red = components[0];
+    green = components[1];
+    blue = components[2];
+    alpha = components[3];
+    
+    ColorUser *color = [NSEntityDescription insertNewObjectForEntityForName:@"ColorUser" inManagedObjectContext:self.managedObjectContext];
+    color.colorRValue = [NSNumber numberWithFloat:red];
+    color.colorGValue = [NSNumber numberWithFloat:green];
+    color.colorBValue = [NSNumber numberWithFloat:blue];
+    color.colorAValue = [NSNumber numberWithFloat:alpha];
+    
+    [self.managedObjectContext save:nil];
 }
 
 @end

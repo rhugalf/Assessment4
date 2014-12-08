@@ -12,6 +12,4 @@
 
 @property NSManagedObjectContext *managedObjectContext;
 
-
-
 @end

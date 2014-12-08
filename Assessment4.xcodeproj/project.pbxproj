@@ -25,6 +25,9 @@
 		93CD77EA1999642A00D27E0A /* AddDogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CD77E91999642A00D27E0A /* AddDogViewController.m */; };
 		93CD77ED199964A100D27E0A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93CD77EB199964A100D27E0A /* Model.xcdatamodeld */; };
 		9A9365B319FAA6D300119419 /* DogOwner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9365B219FAA6D300119419 /* DogOwner.m */; };
+		F00AE7BC1A3478F90020B49A /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = F00AE7BB1A3478F90020B49A /* Dog.m */; };
+		F00AE7BF1A3478FA0020B49A /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = F00AE7BE1A3478FA0020B49A /* Person.m */; };
+		F00AE7C21A3598410020B49A /* ColorUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F00AE7C11A3598410020B49A /* ColorUser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +67,12 @@
 		93CD77EC199964A100D27E0A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		9A9365B119FAA6D300119419 /* DogOwner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DogOwner.h; sourceTree = "<group>"; };
 		9A9365B219FAA6D300119419 /* DogOwner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DogOwner.m; sourceTree = "<group>"; };
+		F00AE7BA1A3478F90020B49A /* Dog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dog.h; sourceTree = "<group>"; };
+		F00AE7BB1A3478F90020B49A /* Dog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dog.m; sourceTree = "<group>"; };
+		F00AE7BD1A3478FA0020B49A /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		F00AE7BE1A3478FA0020B49A /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		F00AE7C01A3598410020B49A /* ColorUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorUser.h; sourceTree = "<group>"; };
+		F00AE7C11A3598410020B49A /* ColorUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorUser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +143,12 @@
 				93CD77E91999642A00D27E0A /* AddDogViewController.m */,
 				93CD77C81999604D00D27E0A /* Images.xcassets */,
 				93CD77EB199964A100D27E0A /* Model.xcdatamodeld */,
+				F00AE7C01A3598410020B49A /* ColorUser.h */,
+				F00AE7C11A3598410020B49A /* ColorUser.m */,
+				F00AE7BD1A3478FA0020B49A /* Person.h */,
+				F00AE7BE1A3478FA0020B49A /* Person.m */,
+				F00AE7BA1A3478F90020B49A /* Dog.h */,
+				F00AE7BB1A3478F90020B49A /* Dog.m */,
 				93CD77B71999604D00D27E0A /* Supporting Files */,
 				9A9365B119FAA6D300119419 /* DogOwner.h */,
 				9A9365B219FAA6D300119419 /* DogOwner.m */,
@@ -269,9 +284,12 @@
 			files = (
 				93CD77C71999604D00D27E0A /* ViewController.m in Sources */,
 				9A9365B319FAA6D300119419 /* DogOwner.m in Sources */,
+				F00AE7C21A3598410020B49A /* ColorUser.m in Sources */,
+				F00AE7BC1A3478F90020B49A /* Dog.m in Sources */,
 				93CD77C11999604D00D27E0A /* AppDelegate.m in Sources */,
 				93CD77BD1999604D00D27E0A /* main.m in Sources */,
 				93CD77EA1999642A00D27E0A /* AddDogViewController.m in Sources */,
+				F00AE7BF1A3478FA0020B49A /* Person.m in Sources */,
 				93CD77E7199962E900D27E0A /* DogsViewController.m in Sources */,
 				93CD77ED199964A100D27E0A /* Model.xcdatamodeld in Sources */,
 			);

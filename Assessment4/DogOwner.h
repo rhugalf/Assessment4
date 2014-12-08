@@ -10,11 +10,11 @@
 
 @interface DogOwner : NSObject
 
-@property NSString *name;
+@property NSArray *listPerson;
 
--(instancetype) initWithString:(NSString *) value;
+@property NSManagedObjectContext *managedObjectContext;
 
-+(void)retrieveDogOwnersWithCompletion:(void  (^)(NSArray*))complete;
+-(void)retrieveListOwnersWithCompletion:(void  (^)(NSArray*))complete;
 
 
 @end

@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *breedTextField;
 @property (weak, nonatomic) IBOutlet UITextField *colorTextField;
 
+
 @end
 
 @implementation AddDogViewController
@@ -28,7 +29,16 @@
 
 - (IBAction)onPressedUpdateDog:(UIButton *)sender
 {
-
+    Dog *pup = [NSEntityDescription insertNewObjectForEntityForName:@"Dog" inManagedObjectContext:self.ownerSelected.managedObjectContext];
+    pup.name = self.nameTextField.text;
+    pup.breed = self.breedTextField.text;
+    pup.color = self.colorTextField.text;
+    
+    
+    [self.ownerSelected addDogsObject:pup];
+    
+    [self.ownerSelected.managedObjectContext save:nil];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
