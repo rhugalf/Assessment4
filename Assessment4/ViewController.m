@@ -43,7 +43,6 @@
         [self.myTableView reloadData];
         }];
     
-    
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"ColorUser"];
    // request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"colorRValue" ascending:YES]];
     NSError *error;

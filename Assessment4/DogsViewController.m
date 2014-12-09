@@ -13,7 +13,7 @@
 @interface DogsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *dogsTableView;
-@property NSArray *dogs;
+@property NSMutableArray *dogs;
 @end
 
 @implementation DogsViewController
@@ -24,12 +24,12 @@
     self.title = @"Dogs";
     
     //[self loadDogs];
-    self.dogs = [self.personOwner.dogs allObjects];
+    self.dogs = [NSMutableArray arrayWithArray:[self.personOwner.dogs allObjects]];
     [self.dogsTableView reloadData];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    self.dogs = [self.personOwner.dogs allObjects];
+    self.dogs = [NSMutableArray arrayWithArray:[self.personOwner.dogs allObjects]];
     [self.dogsTableView reloadData];
 }
 
@@ -53,7 +53,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Dog *dogDeleted = [self.dogs objectAtIndex:indexPath.row];
+        [self.personOwner removeDogsObject:dogDeleted];
+        [self.personOwner.managedObjectContext save:nil];
+        [self.dogs removeObjectAtIndex:indexPath.row];
+        [self.dogsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -70,15 +76,5 @@
         addDog.dogSelect = [self.dogs objectAtIndex:[self.dogsTableView indexPathForCell:cell].row];
     }
 }
-/*
- -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)cell{
- if([segue.identifier isEqualToString:@"ToMapSegue"]){
- MapViewController *mapView = segue.destinationViewController;
- 
- mapView.divvyBikesSt = [self.stationsArray objectAtIndex:[self.tableView indexPathForCell:cell].row];
- }
- 
- */
-
 
 @end
