@@ -45,14 +45,16 @@
     
     
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"ColorUser"];
-    request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"colorRValue" ascending:NO]];
+   // request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"colorRValue" ascending:YES]];
     NSError *error;
+
+    ColorUser *cu = [self.managedObjectContext executeFetchRequest:request error:&error].lastObject;
     
-    ColorUser *cu = [self.managedObjectContext executeFetchRequest:request error:&error];
-    
-    UIColor *col = [[UIColor alloc] initWithRed:1 green:0.5 blue:0 alpha:1];
-    
-    //self.navigationController.navigationBar.tintColor = col;
+    if (cu) {
+        UIColor *col = [[UIColor alloc] initWithRed:[cu.colorRValue floatValue]  green:[cu.colorGValue floatValue] blue:[cu.colorBValue floatValue] alpha:[cu.colorAValue floatValue]];
+        
+        self.navigationController.navigationBar.tintColor = col;
+    }
 
 }
 
@@ -130,7 +132,7 @@
     blue = components[2];
     alpha = components[3];
     
-    ColorUser *color = [NSEntityDescription insertNewObjectForEntityForName:@"ColorUser" inManagedObjectContext:self.managedObjectContext];
+    ColorUser *color = [NSEntityDescription  insertNewObjectForEntityForName:@"ColorUser" inManagedObjectContext:self.managedObjectContext];
     color.colorRValue = [NSNumber numberWithFloat:red];
     color.colorGValue = [NSNumber numberWithFloat:green];
     color.colorBValue = [NSNumber numberWithFloat:blue];

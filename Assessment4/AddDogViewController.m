@@ -13,18 +13,38 @@
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *breedTextField;
 @property (weak, nonatomic) IBOutlet UITextField *colorTextField;
+@property (strong, nonatomic) IBOutlet UIButton *updateButtom;
 
+@property (strong, nonatomic) IBOutlet UIButton *deleteButtom;
 
+@property (strong, nonatomic) IBOutlet UIButton *doneButtom;
 @end
 
 @implementation AddDogViewController
 
 //TODO: UPDATE CODE ACCORIDNGLY
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"Add Dog";
+    if (self.dogSelect) {
+        self.nameTextField.text = self.dogSelect.name;
+        self.breedTextField.text = self.dogSelect.breed;
+        self.colorTextField.text = self.dogSelect.color;
+        
+        self.updateButtom.hidden=NO;
+        self.doneButtom.hidden=YES;
+    }
+}
+
+
+
+- (IBAction)onUpdateButtom:(id)sender {
+}
+
+- (IBAction)onDeleteButtom:(id)sender {
 }
 
 - (IBAction)onPressedUpdateDog:(UIButton *)sender

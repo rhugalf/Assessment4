@@ -52,6 +52,10 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString: @"AddDogSegue"])
@@ -59,12 +63,22 @@
         AddDogViewController *addDog = segue.destinationViewController;
         addDog.ownerSelected = self.personOwner;
     }
-    else
+    else if([segue.identifier isEqualToString:@"updateDogSegue"])
     {
-
+        UITableViewCell *cell = sender;
+        AddDogViewController *addDog =segue.destinationViewController;
+        addDog.dogSelect = [self.dogs objectAtIndex:[self.dogsTableView indexPathForCell:cell].row];
     }
 }
-
+/*
+ -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)cell{
+ if([segue.identifier isEqualToString:@"ToMapSegue"]){
+ MapViewController *mapView = segue.destinationViewController;
+ 
+ mapView.divvyBikesSt = [self.stationsArray objectAtIndex:[self.tableView indexPathForCell:cell].row];
+ }
+ 
+ */
 
 
 @end

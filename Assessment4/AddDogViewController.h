@@ -13,5 +13,6 @@
 @interface AddDogViewController : UIViewController
 
 @property Person *ownerSelected;
+@property Dog *dogSelect;
 
 @end
